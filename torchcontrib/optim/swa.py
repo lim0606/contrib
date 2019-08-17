@@ -186,6 +186,18 @@ class SWA(Optimizer):
         for group in self.param_groups:
             self.update_swa_group(group)
 
+    def use_buf(self):
+        if self.is_swapped:
+            pass
+        else:
+            self.swap_buf_sgd()
+
+    def use_sgd(self):
+        if self.is_swapped:
+            self.swap_buf_sgd()
+        else:
+            pass
+
     def swap_buf_sgd(self):
         r"""Swaps the values of the optimized variables and swa buffers.
 
